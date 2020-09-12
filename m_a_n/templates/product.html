@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="header" id="myHeader">
+        <h1>Minotaur</h1>
+        <div class="navbar">
+            <a href="/master_home">Home</a> | <a href="/new_shop">Create A Shop</a> | <a href="/my_shops">My Shops</a> | <a href="/logout">Logout</a>
+        </div>
+    </div>
+    <div class="content">
+        <h3>{{one_product.product_name}}</h3>
+        <ul>
+            <form action="/purchase" method="POST">
+                {% csrf_token %}
+                <div class="pic">
+                    <li><img src="{{one_product.product_pic.url}}" alt="{{one_product.product_name}}" width="400px"></li>
+                </div>
+                <div class="deets">
+                    <li><input type="hidden" name="id" value="{{one_product.id}}">${{one_product.price}}</li>
+                    <li>{{one_product.description}}</li>
+                </div><br>
+                <label for="quantity">Quantity</label>
+                <select name="quantity">
+                    <option value="1">1</option>              
+                    <option value="2">2</option>              
+                    <option value="3">3</option>              
+                </select>
+            </ul>
+            <input type="submit" value="One-Click Buy!" class="regbutton">
+            </form><br>
+        {% if one_product.shop.id == request.session.user_id %}
+        <a href="/delete/{{one_product.id}}">Delete</a>
+        {% endif %}
+
+        <a href="/shop/{{one_product.shop.id}}">Back To Shop</a>
+    </div>
+    <script>
+        window.onscroll = function () { myFunction() };
+
+        var header = document.getElementById("myHeader");
+        var sticky = header.offsetTop;
+
+        function myFunction() {
+            if (window.pageYOffset > sticky) {
+                header.classList.add("sticky");
+            } else {
+                header.classList.remove("sticky");
+            }
+        }
+    </script>
+
+    
+    
+</body>
+</html>

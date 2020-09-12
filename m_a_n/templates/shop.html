@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <div class="header" id="myHeader">
+        <h1>Minotaur</h1>
+        <div class="navbar">
+            <a href="/master_home">Home</a> | <a href="/new_shop">Create A Shop</a> | <a href="/my_shops">My
+                Shops</a> | <a href="/logout">Logout</a>
+        </div>
+    </div>
+    <div class="addproduct">
+        {% if one_shop.creator.id == request.session.user_id %}
+        <a href="/new_product" class='productbutton'>Add Product</a>
+        {% endif %}
+    </div>
+    <div class="content">
+        <h2>{{one_shop.shop_name}}</h2>
+        <div class="products">
+            {% for one_product in one_shop.products.all %}
+            <div class="aproduct">
+                <a href="/product/{{one_product.id}}">
+                    <h3>{{one_product.product_name}}</h3>
+                </a>
+                <ul>
+                    <li><img src="{{one_product.product_pic.url}}" alt="{{one_product.product_name}}" width="350px" height="275px">
+                    </li><br>
+                    <div class="underdeets" style="width:350px;">
+                        <li>${{one_product.price}}</li><br>
+                        <li>{{one_product.description}}</li><br>
+                    </div>
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+
+
+    </div>
+    <script>
+        window.onscroll = function () { myFunction() };
+
+        var header = document.getElementById("myHeader");
+        var sticky = header.offsetTop;
+
+        function myFunction() {
+            if (window.pageYOffset > sticky) {
+                header.classList.add("sticky");
+            } else {
+                header.classList.remove("sticky");
+            }
+        }
+    </script>
+</body>
+
+</html>

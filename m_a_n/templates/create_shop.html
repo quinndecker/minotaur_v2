@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create A New Shop</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <div class="header" id="myHeader">
+        <h1>Minotaur</h1>
+        <div class="navbar">
+            <a href="/master_home">Home</a> | <a href="/new_shop">Create A Shop</a> | <a href="/my_shops">My Shops</a> | <a href="/logout">Logout</a>
+        </div>
+    </div>
+    <div class="content">
+        <h2>Create A New Shop</h2>
+        <div class="newshopform">
+            {% if messages %}
+            <ul class="messages">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+            </ul>
+            {% endif %}
+            <form action="/create_shop" method='POST'>
+                {% csrf_token %}
+                <label for="shop_name">Shop Name:</label><br>
+                <input type="text" name='shop_name'><br>
+                <label for="shop_type">What Do You Make?:</label>
+                <select name="shop_type" id="shop_type" class='drop'>
+                    <option value="VISUALARTIST">Visual Artist</option>
+                    <option value="MUSIC">Band/Musician</option>
+                    <option value="CLOTHING">Clothing</option>
+                    <option value="ACCESSORIES">Accessories</option>
+                </select><br>
+                <input type="submit" value="Build Your Shop" class='regbutton'>
+
+            </form>
+        </div>
+    </div>
+    <script>
+        window.onscroll = function () { myFunction() };
+
+        var header = document.getElementById("myHeader");
+        var sticky = header.offsetTop;
+
+        function myFunction() {
+            if (window.pageYOffset > sticky) {
+                header.classList.add("sticky");
+            } else {
+                header.classList.remove("sticky");
+            }
+        }
+    </script>
+</body>
+
+</html>

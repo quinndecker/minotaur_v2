@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minotaur Artist Network</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="header" id="myHeader">
+        <h1>Minotaur</h1>
+    </div>
+    <div class="content">
+        <h2>Join the Minotaur Artist Network</h2><br>
+        <h3>A Network of Artisans Made By Creatives For Creatives</h3>
+        <p>we will never take a cut or charge a shop fee</p><br>
+        {% if messages %}
+        <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+        </ul> 
+        {% endif %}
+        <div class="forms">
+            <div class="regform">
+                <h4>Create An Account</h4>
+                <form action="/register" method="POST">
+                    {% csrf_token %}
+                    <label for="username">Username</label><br>
+                    <input type="text" name='username'><br>
+                    <label for="email">Email</label><br>
+                    <input type="text" name='email'><br>
+                    <label for="password">Password</label><br>
+                    <input type="text" name='password'><br>
+                    <label for="confirm_password">Confirm Password</label><br>
+                    <input type="text" name='confirm_password'><br>
+                    <input type="submit" value="Register" class='regbutton'>
+                </form>
+            </div>
+        </div><br>
+    <p>Already have an account? <a href="/login">Login</a></p>
+    </div>
+    <script>
+        window.onscroll = function() {myFunction()};
+        
+        var header = document.getElementById("myHeader");
+        var sticky = header.offsetTop;
+        
+        function myFunction() {
+          if (window.pageYOffset > sticky) {
+            header.classList.add("sticky");
+          } else {
+            header.classList.remove("sticky");
+          }
+        }
+        </script>
+
+</body>
+
+</html>

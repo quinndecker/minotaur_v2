@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minotaur Artist Network</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <div class="header" id="myHeader">
+        <h1>Minotaur</h1>
+    </div>
+    <div class="content">
+        <div class="regform">
+            <h4>Login</h4>
+            <form action="/user_logger" method='POST'>
+                {% csrf_token %}
+                <label for="email">Email</label><br>
+                <input type="text" name='email'><br>
+                <label for="password">Password</label><br>
+                <input type="text" name='password'><br>
+                <input type="submit" value="Login" class='regbutton'>
+            </form>
+        </div>
+    </div>
+    <script>
+        window.onscroll = function () { myFunction() };
+
+        var header = document.getElementById("myHeader");
+        var sticky = header.offsetTop;
+
+        function myFunction() {
+            if (window.pageYOffset > sticky) {
+                header.classList.add("sticky");
+            } else {
+                header.classList.remove("sticky");
+            }
+        }
+    </script>
+</body>
+
+</html>
